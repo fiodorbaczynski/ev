@@ -1,8 +1,8 @@
-defmodule EvTest do
+defmodule EVTest do
   use ExUnit.Case
-  doctest Ev
+  doctest EV
 
   test "greets the world" do
-    assert Ev.hello() == :world
+    assert EV.hello() == :world
   end
 end

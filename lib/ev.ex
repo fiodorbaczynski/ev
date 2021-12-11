@@ -1,6 +1,6 @@
-defmodule Ev do
+defmodule EV do
   @moduledoc """
-  Documentation for `Ev`.
+  Documentation for `EV`.
   """
 
   @doc """
@@ -8,7 +8,7 @@ defmodule Ev do
 
   ## Examples
 
-      iex> Ev.hello()
+      iex> EV.hello()
       :world
 
   """
