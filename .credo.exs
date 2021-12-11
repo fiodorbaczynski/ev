@@ -172,8 +172,7 @@
           {Credo.Check.Warning.LeakyEnvironment, []},
           {Credo.Check.Warning.MapGetUnsafePass, []},
           {Credo.Check.Warning.MixEnv, []},
-          {Credo.Check.Warning.UnsafeToAtom, []},
-          {Credo.Check.Warning.LazyLogging, []}
+          {Credo.Check.Warning.UnsafeToAtom, []}
         ],
         disabled: [
           #
@@ -196,7 +195,8 @@
           {Credo.Check.Refactor.ModuleDependencies, []},
           {Credo.Check.Refactor.NegatedIsNil, []},
           {Credo.Check.Refactor.RejectFilter, []},
-          {Credo.Check.Refactor.VariableRebinding, []}
+          {Credo.Check.Refactor.VariableRebinding, []},
+          {Credo.Check.Warning.LazyLogging, []}
 
           # {Credo.Check.Refactor.MapInto, []},
 
