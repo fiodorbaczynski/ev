@@ -1,0 +1,13 @@
+create table(:"<%= @table_name %>", primary_key: false) do
+  add(:id, :binary_id, primary_key: true)
+  add(:type, :string, null: false)
+  add(:version, :integer, null: false)
+  add(:payload, :jsonb, null: false)
+  add(:issuer, :jsonb)
+
+  add(:published_at, :utc_datetime_usec, null: false)
+  add(:applied_at, :utc_datetime_usec)
+end
+
+create unique_index(:events, ["published_at DESC"], name: :"<%= @table_name %>_published_at_index")
+create unique_index(:events, ["applied_at DESC NULLS LAST"], name: :"<%= @table_name %>_applied_at_index")
