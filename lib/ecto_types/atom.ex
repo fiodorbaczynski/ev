@@ -4,7 +4,7 @@ defmodule EV.EctoTypes.Atom do
 
   Important note: this uses the unsafe function `String.to_atom/1`,
   and therefore should only be used on fields which have a constant range of available values,
-  which are most importantly *not* user-generated.
+  and which are most importantly *not* user-generated.
   """
 
   use Ecto.Type
@@ -20,6 +20,7 @@ defmodule EV.EctoTypes.Atom do
   end
 
   def cast(data) when is_binary(data) do
+    # credo:disable-for-next-line Credo.Check.Warning.UnsafeToAtom
     {:ok, String.to_atom(data)}
   end
 
@@ -29,10 +30,11 @@ defmodule EV.EctoTypes.Atom do
   def load(data)
 
   def load(data) when is_binary(data) do
+    # credo:disable-for-next-line Credo.Check.Warning.UnsafeToAtom
     {:ok, String.to_atom(data)}
   end
 
-  def load(data), do: :error
+  def load(_data), do: :error
 
   @impl Ecto.Type
   def dump(data)

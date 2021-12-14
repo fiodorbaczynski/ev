@@ -1,4 +1,15 @@
 defmodule EV.Applicator do
-  @callback call(event :: EV.Event.t(), handler :: module(), opts :: Keyword.t()) ::
+  @moduledoc """
+  Defines a behaviour for applicators.
+
+  Applicators process events when applied. They should call the given handler.
+  May also persist the given event to a database.
+  """
+
+  @callback call(
+              changeset :: Ecto.Changeset.t(),
+              handler :: (EV.Event.t() -> {:ok | :error, any()}),
+              opts :: Keyword.t()
+            ) ::
               {:ok | :error, any()}
 end

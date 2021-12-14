@@ -8,7 +8,7 @@ defmodule EV.Publishers.DefaultTest do
 
       changeset =
         EV.Event.publish_changeset(%{
-          type: :event_happened,
+          type: :something_happened,
           version: 1,
           payload: %{a: 1, b: 2},
           issuer: %{type: :user, id: user_id},
@@ -26,7 +26,7 @@ defmodule EV.Publishers.DefaultTest do
       assert {:ok, %EV.Event{} = event} = EV.Publishers.Default.call(changeset, [])
 
       assert Map.take(event, [:type, :version, :payload, :issuer, :published_at]) == %{
-               type: :event_happened,
+               type: :something_happened,
                version: 1,
                payload: %{"a" => 1, "b" => 2},
                issuer: %{"type" => "user", "id" => user_id},

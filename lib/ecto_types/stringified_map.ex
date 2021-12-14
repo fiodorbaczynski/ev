@@ -20,7 +20,7 @@ defmodule EV.EctoTypes.StringifiedMap do
          {:ok, decoded} <- Jason.decode(encoded) do
       {:ok, decoded}
     else
-      _ -> :error
+      _error -> :error
     end
   end
 
@@ -34,7 +34,7 @@ defmodule EV.EctoTypes.StringifiedMap do
     |> Jason.decode()
     |> case do
       {:ok, decoded} -> {:ok, decoded}
-      _ -> :error
+      _error -> :error
     end
   end
 
@@ -48,7 +48,7 @@ defmodule EV.EctoTypes.StringifiedMap do
     |> Jason.encode()
     |> case do
       {:ok, encoded} -> {:ok, encoded}
-      _ -> :error
+      _error -> :error
     end
   end
 

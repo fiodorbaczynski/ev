@@ -1,6 +1,8 @@
 defmodule EVTest do
   use EV.TestCase, async: true
 
+  doctest EV
+
   describe "publish/4" do
     test "should publish an event" do
       expect(PublisherMock, :call, fn changeset, _opts ->
@@ -8,13 +10,13 @@ defmodule EVTest do
       end)
 
       assert {:ok, event} =
-               EV.publish(%{a: 1, b: 2}, :event_happened, %{type: :system},
+               EV.publish(%{a: 1, b: 2}, :something_happened, %{type: :system},
                  publisher: PublisherMock,
-                 events: [event_happened: [version: 1]]
+                 events: [something_happened: [version: 1]]
                )
 
       assert Map.take(event, [:payload, :type, :issuer, :version]) == %{
-               type: :event_happened,
+               type: :something_happened,
                payload: %{"a" => 1, "b" => 2},
                issuer: %{"type" => "system"},
                version: 1
@@ -29,9 +31,9 @@ defmodule EVTest do
       end)
 
       assert {:error, changeset} =
-               EV.publish(%{a: 1, b: 2}, :event_happened, %{type: :system},
+               EV.publish(%{a: 1, b: 2}, :something_happened, %{type: :system},
                  publisher: PublisherMock,
-                 events: [event_happened: [version: 1]]
+                 events: [something_happened: [version: 1]]
                )
 
       assert not changeset.valid?
@@ -45,13 +47,13 @@ defmodule EVTest do
       end)
 
       assert {:ok, event} =
-               EV.maybe_publish({:ok, %{a: 1, b: 2}}, :event_happened, %{type: :system},
+               EV.maybe_publish({:ok, %{a: 1, b: 2}}, :something_happened, %{type: :system},
                  publisher: PublisherMock,
-                 events: [event_happened: [version: 1]]
+                 events: [something_happened: [version: 1]]
                )
 
       assert Map.take(event, [:payload, :type, :issuer, :version]) == %{
-               type: :event_happened,
+               type: :something_happened,
                payload: %{"a" => 1, "b" => 2},
                issuer: %{"type" => "system"},
                version: 1
@@ -66,9 +68,9 @@ defmodule EVTest do
       end)
 
       assert {:error, changeset} =
-               EV.publish({:ok, %{a: 1, b: 2}}, :event_happened, %{type: :system},
+               EV.publish({:ok, %{a: 1, b: 2}}, :something_happened, %{type: :system},
                  publisher: PublisherMock,
-                 events: [event_happened: [version: 1]]
+                 events: [something_happened: [version: 1]]
                )
 
       assert not changeset.valid?
@@ -76,9 +78,9 @@ defmodule EVTest do
 
     test "should return an error if supplied payload is bad" do
       assert {:error, "bad payload"} =
-               EV.maybe_publish({:error, "bad payload"}, :event_happened, %{type: :system},
+               EV.maybe_publish({:error, "bad payload"}, :something_happened, %{type: :system},
                  publisher: PublisherMock,
-                 events: [event_happened: [version: 1]]
+                 events: [something_happened: [version: 1]]
                )
     end
   end

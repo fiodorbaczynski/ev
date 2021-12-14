@@ -8,7 +8,7 @@ defmodule EV.Publishers.DatabasePersistedTest do
 
       changeset =
         EV.Event.publish_changeset(%{
-          type: :event_happened,
+          type: :something_happened,
           version: 1,
           payload: %{a: 1, b: 2},
           issuer: %{type: :user, id: user_id},
@@ -28,10 +28,10 @@ defmodule EV.Publishers.DatabasePersistedTest do
       end)
 
       assert {:ok, %EV.Event{} = event} =
-               EV.Publishers.DatabasePersisted.call(changeset, publisher_opts: [repo: RepoMock])
+               EV.Publishers.DatabasePersisted.call(changeset, repo: RepoMock)
 
       assert Map.take(event, [:type, :version, :payload, :issuer, :published_at]) == %{
-               type: :event_happened,
+               type: :something_happened,
                version: 1,
                payload: %{"a" => 1, "b" => 2},
                issuer: %{"type" => "user", "id" => user_id},

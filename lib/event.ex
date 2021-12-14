@@ -1,4 +1,8 @@
 defmodule EV.Event do
+  @moduledoc """
+  Defines an `Ecto.Schema` for events.
+  """
+
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -7,7 +11,7 @@ defmodule EV.Event do
           type: atom(),
           version: pos_integer(),
           payload: map(),
-          issuer: map(),
+          issuer: map() | nil,
           published_at: DateTime.t(),
           applied_at: DateTime.t() | nil
         }
@@ -21,6 +25,7 @@ defmodule EV.Event do
     field(:applied_at, :utc_datetime_usec)
   end
 
+  @spec publish_changeset(%__MODULE__{} | Ecto.Changeset.t(), map()) :: Ecto.Changeset.t()
   def publish_changeset(event \\ %__MODULE__{}, params) do
     event
     |> cast(params, [:type, :version, :payload, :issuer, :published_at])
@@ -29,6 +34,7 @@ defmodule EV.Event do
     |> validate_number(:version, greater_than: 0)
   end
 
+  @spec apply_changeset(%__MODULE__{} | Ecto.Changeset.t(), map()) :: Ecto.Changeset.t()
   def apply_changeset(event \\ %__MODULE__{}, params) do
     event
     |> cast(params, [:applied_at])

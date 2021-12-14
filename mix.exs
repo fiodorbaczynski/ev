@@ -15,6 +15,18 @@ defmodule EV.MixProject do
       dialyzer: [
         plt_add_apps: [:mix, :ex_unit],
         plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+      ],
+      name: "EV",
+      source_url: "https://github.com/fiodorbaczynski/ev",
+      homepage_url: "",
+      docs: [
+        main: "EV",
+        groups_for_modules: [
+          Applicator: [EV.Applicator, EV.Applicators.Default, EV.Applicators.DatabasePersisted],
+          Publisher: [EV.Publisher, EV.Publishers.Default, EV.Publishers.DatabasePersisted],
+          Helpers: [EV.ChangesetHelper, EV.ConfigHelper],
+          "Ecto types": [EV.EctoTypes.Atom, EV.EctoTypes.StringifiedMap]
+        ]
       ]
     ]
   end
@@ -31,7 +43,8 @@ defmodule EV.MixProject do
       {:dialyxir, "~> 1.1.0", only: [:dev], runtime: false},
       {:mox, "~> 1.0", only: :test},
       {:jason, "~> 1.0"},
-      {:ecto_sql, "~> 3.4"}
+      {:ecto_sql, "~> 3.4"},
+      {:ex_doc, "~> 0.24", only: :dev, runtime: false}
     ]
   end
 
