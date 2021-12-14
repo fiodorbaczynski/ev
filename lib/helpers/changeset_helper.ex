@@ -29,7 +29,9 @@ defmodule EV.ChangesetHelper do
 
   def get_changes(%{valid?: true} = changeset, opts) do
     carry_fields =
-      opts |> EV.ConfigHelper.get_config(:carry_fields, [:id], :changeset_helper) |> List.wrap()
+      opts
+      |> EV.ConfigHelper.get_config(:carry_fields, [:id], :changeset_helper_opts)
+      |> List.wrap()
 
     {:ok, do_get_changes(changeset, carry_fields)}
   end
