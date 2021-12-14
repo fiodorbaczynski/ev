@@ -21,7 +21,7 @@ defmodule EV.Event.Migration do
       )
 
     Logger.debug("Using #{table_name} as the events table")
-    Logger.debug("Using #{migration_version} as the migration version")
+    Logger.debug("Using #{migration_version} as the events migration version")
 
     migration =
       [:code.priv_dir(:ev), "migrations", "#{migration_version}.exs.eex"]
