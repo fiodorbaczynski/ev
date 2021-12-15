@@ -16,7 +16,7 @@ defmodule EV.Event do
           applied_at: DateTime.t() | nil
         }
   @primary_key {:id, :binary_id, autogenerate: true}
-  embedded_schema do
+  schema EV.ConfigHelper.get_config([], :table_name, "events", :persistence_opts) do
     field(:type, EV.EctoTypes.Atom)
     field(:version, :integer)
     field(:payload, EV.EctoTypes.StringifiedMap)
