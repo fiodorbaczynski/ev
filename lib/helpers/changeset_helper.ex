@@ -61,5 +61,13 @@ defmodule EV.ChangesetHelper do
     |> Enum.into(%{})
   end
 
+  defp do_get_changes(binary, _carry_fields) when is_binary(binary) do
+    if String.printable?(binary) do
+      binary
+    else
+      Base.encode64(binary)
+    end
+  end
+
   defp do_get_changes(term, _carry_fields), do: term
 end

@@ -100,5 +100,13 @@ defmodule EV.ChangesetHelperTest do
                   another_child: %{id: 3, bar: "baz"}
                 }}
     end
+
+    test "should base 64 encode unprintable binaries" do
+      assert EV.ChangesetHelper.get_changes(%Ecto.Changeset{
+               valid?: true,
+               data: %{id: 1},
+               changes: %{a: 1, b: "2", c: <<1, 2, 3>>}
+             }) == {:ok, %{id: 1, a: 1, b: "2", c: "AQID"}}
+    end
   end
 end
