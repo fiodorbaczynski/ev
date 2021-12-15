@@ -18,7 +18,7 @@ defmodule EV.Applicators.DatabasePersisted do
       fn transaction ->
         with {:ok, applied_event} <- transaction.update(changeset, []),
              {:ok, result} <- handler.(applied_event) do
-          {:ok, {applied_event, result}}
+          {applied_event, result}
         else
           {:error, error} -> transaction.rollback(error)
         end

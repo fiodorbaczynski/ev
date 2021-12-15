@@ -29,7 +29,7 @@ defmodule EV.Applicators.DatabasePersistedTest do
     } do
       RepoMock
       |> expect(:transaction, fn transaction_fun, _opts ->
-        transaction_fun.(RepoMock)
+        {:ok, transaction_fun.(RepoMock)}
       end)
       |> expect(:update, fn changeset, _opts ->
         Ecto.Changeset.apply_action(changeset, :update)
