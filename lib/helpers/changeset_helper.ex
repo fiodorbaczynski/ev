@@ -70,4 +70,15 @@ defmodule EV.ChangesetHelper do
   end
 
   defp do_get_changes(term, _carry_fields), do: term
+
+  @spec cast_params!(map(), module()) :: map()
+  def cast_params!(params, module) do
+    fields = module.__schema__(:fields)
+
+    module
+    |> struct()
+    |> Ecto.Changeset.cast(params, fields)
+    |> Ecto.Changeset.apply_action!(:insert)
+    |> Map.take(fields)
+  end
 end

@@ -109,4 +109,31 @@ defmodule EV.ChangesetHelperTest do
              }) == {:ok, %{id: 1, a: 1, b: "2", c: "AQID"}}
     end
   end
+
+  describe "cast_params/2" do
+    setup do
+      [{schema_module, _}] =
+        Code.compile_string(
+          """
+          defmodule SomeSchema do
+            use Ecto.Schema
+
+            @primary_key false
+            schema "blabla" do
+              field(:a, :date)
+              field(:b, :integer)
+            end
+          end
+          """,
+          __ENV__.file
+        )
+
+      {:ok, schema_module: schema_module}
+    end
+
+    test "should cast params based on a given changeset module", %{schema_module: schema_module} do
+      assert EV.ChangesetHelper.cast_params!(%{"a" => "2021-01-01", "b" => "3"}, schema_module) ==
+               %{a: ~D[2021-01-01], b: 3}
+    end
+  end
 end
