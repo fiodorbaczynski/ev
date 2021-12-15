@@ -15,7 +15,8 @@ defmodule EV.ConfigHelper do
     prefix = List.wrap(prefix)
     all_keys = prefix ++ keys
 
-    with :error <- do_fetch_config(opts, keys),
+    with :error <- do_fetch_config(opts, all_keys),
+         :error <- do_fetch_config(opts, keys),
          :error <- do_fetch_env_config(all_keys) do
       :error
     end
@@ -67,7 +68,21 @@ defmodule EV.ConfigHelper do
         value
 
       :error ->
-        raise "`(#{inspect(List.wrap(prefix))}` ++ )#{inspect(List.wrap(key_or_keys))}` not configured or supplied as option for the application `:ev`."
+        prefix_string =
+          if prefix != [] do
+            "(`#{inspect(prefix)}`) "
+          else
+            ""
+          end
+
+        keys_string =
+          if key_or_keys != [] do
+            "`#{inspect(key_or_keys)}`"
+          else
+            ""
+          end
+
+        raise "#{prefix_string}#{keys_string} not configured or supplied as option for the application `:ev`."
     end
   end
 end

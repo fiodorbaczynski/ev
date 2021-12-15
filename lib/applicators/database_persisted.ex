@@ -4,14 +4,15 @@ defmodule EV.Applicators.DatabasePersisted do
 
   ## Options
 
-    * `:repo` - required; module which defines an `Ecto.Repo` behavior; used for persistence
+    * `:repo` - full path `[:persistence_opts, :repo]`; required; module which defines the `Ecto.Repo` behavior;
+      used for persistence
   """
 
   @behaviour EV.Applicator
 
   @impl EV.Applicator
   def call(changeset, handler, opts) do
-    repo = EV.ConfigHelper.fetch_config!(opts, :repo, :applicator_opts)
+    repo = EV.ConfigHelper.fetch_config!(opts, :repo, :persistence_opts)
 
     repo.transaction(
       fn transaction ->

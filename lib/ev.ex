@@ -37,7 +37,6 @@ defmodule EV do
           {:ok, EV.Event.t()} | {:error, any()}
   def publish(payload, type, issuer, opts \\ []) do
     publisher = EV.ConfigHelper.get_config(opts, :publisher, EV.Publishers.Default)
-    publisher_opts = EV.ConfigHelper.get_config(opts, :publisher_opts, [])
 
     version = EV.ConfigHelper.fetch_config!(opts, [:events, type, :version])
 
@@ -49,7 +48,7 @@ defmodule EV do
       published_at: DateTime.utc_now()
     }
     |> EV.Event.publish_changeset()
-    |> publisher.call(publisher_opts)
+    |> publisher.call(opts)
   end
 
   @doc """
@@ -74,13 +73,12 @@ defmodule EV do
   @spec apply(event :: EV.Event.t(), opts :: Keyword.t()) :: {:ok | :error, any()}
   def apply(%{type: type} = event, opts \\ []) do
     applicator = EV.ConfigHelper.get_config(opts, :applicator, EV.Applicators.Default)
-    applicator_opts = EV.ConfigHelper.get_config(opts, :applicator_opts, [])
 
     handler = EV.ConfigHelper.fetch_config!(opts, [:events, type, :handler])
 
     event
     |> EV.Event.apply_changeset(%{applied_at: DateTime.utc_now()})
-    |> applicator.call(&handler.handle/1, applicator_opts)
+    |> applicator.call(&handler.handle/1, opts)
   end
 
   @spec maybe_apply(maybe_event :: {:ok, EV.Event.t()} | {:error, any()}, opts :: Keyword.t()) ::

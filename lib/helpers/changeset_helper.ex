@@ -8,8 +8,8 @@ defmodule EV.ChangesetHelper do
 
   ## Options
 
-    * `:carry_fields` - optional; atom or list of atoms; specifies which, if any, fields should be taken from data
-      when missing in changes; defaults to `[:id]`
+    * `:carry_fields` - full path `[:changeset_helper_opts, :repo]`; optional; atom or list of atoms;
+      specifies which, if any, fields should be taken from data when missing in changes; defaults to `[:id]`
 
   ## Examples
 

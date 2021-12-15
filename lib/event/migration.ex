@@ -10,7 +10,7 @@ defmodule EV.Event.Migration do
 
     {unquoted_opts, []} = Code.eval_quoted(opts)
 
-    table_name = EV.ConfigHelper.fetch_config!(unquoted_opts, :table_name, :migration_opts)
+    table_name = EV.ConfigHelper.fetch_config!(unquoted_opts, :table_name, :persistence_opts)
 
     migration_version =
       EV.ConfigHelper.get_config(
