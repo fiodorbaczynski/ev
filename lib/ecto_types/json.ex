@@ -1,6 +1,6 @@
-defmodule EV.EctoTypes.StringifiedMap do
+defmodule EV.EctoTypes.JSON do
   @moduledoc """
-  The `StringifiedMap` Ecto type behaves like the built-in `:map` type,
+  The `JSON` Ecto type behaves like the built-in `:map` type,
   except it stringifies keys when cast.
 
   This is important for consistency regardless of whether a given record is saved to the database.
@@ -13,9 +13,7 @@ defmodule EV.EctoTypes.StringifiedMap do
   def type(), do: :jsonb
 
   @impl Ecto.Type
-  def cast(data)
-
-  def cast(data) when is_map(data) do
+  def cast(data) do
     with {:ok, encoded} <- Jason.encode(data),
          {:ok, decoded} <- Jason.decode(encoded) do
       {:ok, decoded}
@@ -23,8 +21,6 @@ defmodule EV.EctoTypes.StringifiedMap do
       _error -> :error
     end
   end
-
-  def cast(_data), do: :error
 
   @impl Ecto.Type
   def load(data)
@@ -41,9 +37,7 @@ defmodule EV.EctoTypes.StringifiedMap do
   def load(_data), do: :error
 
   @impl Ecto.Type
-  def dump(data)
-
-  def dump(data) when is_map(data) do
+  def dump(data) do
     data
     |> Jason.encode()
     |> case do
@@ -51,6 +45,4 @@ defmodule EV.EctoTypes.StringifiedMap do
       _error -> :error
     end
   end
-
-  def dump(_data), do: :error
 end

@@ -25,7 +25,7 @@ defmodule EV.MixProject do
           Applicator: [EV.Applicator, EV.Applicators.Default, EV.Applicators.DatabasePersisted],
           Publisher: [EV.Publisher, EV.Publishers.Default, EV.Publishers.DatabasePersisted],
           Helpers: [EV.ChangesetHelper, EV.ConfigHelper],
-          "Ecto types": [EV.EctoTypes.Atom, EV.EctoTypes.StringifiedMap]
+          "Ecto types": [EV.EctoTypes.Atom, EV.EctoTypes.JSON]
         ]
       ]
     ]

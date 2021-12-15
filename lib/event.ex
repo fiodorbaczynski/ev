@@ -19,8 +19,8 @@ defmodule EV.Event do
   schema EV.ConfigHelper.get_config([], :table_name, "events", :persistence_opts) do
     field(:type, EV.EctoTypes.Atom)
     field(:version, :integer)
-    field(:payload, EV.EctoTypes.StringifiedMap)
-    field(:issuer, EV.EctoTypes.StringifiedMap)
+    field(:payload, EV.EctoTypes.JSON)
+    field(:issuer, EV.EctoTypes.JSON)
     field(:published_at, :utc_datetime_usec)
     field(:applied_at, :utc_datetime_usec)
   end
