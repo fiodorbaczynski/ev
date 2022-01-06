@@ -15,19 +15,19 @@ defmodule EV.ChangesetHelper do
 
   ```elixir
   iex> changeset = %Ecto.Changeset{valid?: true, data: %{id: 1, foo: "abc"}, changes: %{foo: "cde", bar: "efg"}}
-  iex> EV.ChangesetHelper.get_changes(changeset)
+  iex> EV.ChangesetHelper.fetch_changes(changeset)
   {:ok, %{id: 1, foo: "cde", bar: "efg"}}
 
   iex> changeset = %Ecto.Changeset{valid?: true, data: %{id: 1, foo: "abc", baz: "123"}, changes: %{foo: "cde", bar: "efg"}}
-  iex> EV.ChangesetHelper.get_changes(changeset, carry_fields: [:id, :baz])
+  iex> EV.ChangesetHelper.fetch_changes(changeset, carry_fields: [:id, :baz])
   {:ok, %{id: 1, foo: "cde", bar: "efg", baz: "123"}}
   ```
   """
-  @spec get_changes(Ecto.Changeset.t(), opts :: Keyword.t()) ::
+  @spec fetch_changes(Ecto.Changeset.t(), opts :: Keyword.t()) ::
           {:ok, any()} | {:error, Ecto.Changeset.t()}
-  def get_changes(changeset, opts \\ [])
+  def fetch_changes(changeset, opts \\ [])
 
-  def get_changes(%{valid?: true} = changeset, opts) do
+  def fetch_changes(%{valid?: true} = changeset, opts) do
     carry_fields =
       opts
       |> EV.ConfigHelper.get_config(:carry_fields, [:id], :changeset_helper_opts)
@@ -36,7 +36,7 @@ defmodule EV.ChangesetHelper do
     {:ok, do_get_changes(changeset, carry_fields)}
   end
 
-  def get_changes(%{valid?: false} = changeset, _opts) do
+  def fetch_changes(%{valid?: false} = changeset, _opts) do
     {:error, changeset}
   end
 

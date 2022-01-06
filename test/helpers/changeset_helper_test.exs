@@ -3,9 +3,9 @@ defmodule EV.ChangesetHelperTest do
 
   doctest EV.ChangesetHelper
 
-  describe "get_changes/2" do
+  describe "fetch_changes/2" do
     test "should extract normalised nested changes from changeset" do
-      assert EV.ChangesetHelper.get_changes(%Ecto.Changeset{
+      assert EV.ChangesetHelper.fetch_changes(%Ecto.Changeset{
                valid?: true,
                data: %{},
                changes: %{
@@ -31,7 +31,7 @@ defmodule EV.ChangesetHelperTest do
     end
 
     test "should preserve carry fields from data" do
-      assert EV.ChangesetHelper.get_changes(
+      assert EV.ChangesetHelper.fetch_changes(
                %Ecto.Changeset{
                  valid?: true,
                  data: %{guid: 1},
@@ -77,7 +77,7 @@ defmodule EV.ChangesetHelperTest do
     end
 
     test "should preserve id by default" do
-      assert EV.ChangesetHelper.get_changes(%Ecto.Changeset{
+      assert EV.ChangesetHelper.fetch_changes(%Ecto.Changeset{
                valid?: true,
                data: %{id: 1},
                changes: %{
@@ -102,7 +102,7 @@ defmodule EV.ChangesetHelperTest do
     end
 
     test "should base 64 encode unprintable binaries" do
-      assert EV.ChangesetHelper.get_changes(%Ecto.Changeset{
+      assert EV.ChangesetHelper.fetch_changes(%Ecto.Changeset{
                valid?: true,
                data: %{id: 1},
                changes: %{a: 1, b: "2", c: <<1, 2, 3>>}

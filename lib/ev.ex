@@ -20,7 +20,7 @@ defmodule EV do
   def create_user(params) do
     params
     |> User.new_changeset(params)
-    |> EV.ChangesetHelper.get_changes()
+    |> EV.ChangesetHelper.fetch_changes()
     |> EV.maybe_publish(:user_created, nil)
     |> EV.maybe_apply()
   end
@@ -107,7 +107,7 @@ defmodule EV do
 
   Some functions' options documentation includes a note "full path ...". This refers to the path when configuring this option globally.
   When passing options directly to the function you may use the short path.
-  Take a look at the difference in `EV.ChangesetHelper.get_changes/2` configuration in the example below.
+  Take a look at the difference in `EV.ChangesetHelper.fetch_changes/2` configuration in the example below.
 
   Explicitly passed options are meant to override the global config and/or be used for testing and debugging. Configuring common options globally is prefered,
   especially for shared options.
@@ -137,7 +137,7 @@ defmodule EV do
   def create_user(params) do
     params
     |> User.new_changeset(params)
-    |> EV.ChangesetHelper.get_changes()
+    |> EV.ChangesetHelper.fetch_changes()
     |> EV.maybe_publish(:user_created, nil)
     |> EV.maybe_apply()
   end
@@ -149,7 +149,7 @@ defmodule EV do
   def create_user(params) do
     params
     |> User.new_changeset(params)
-    |> EV.ChangesetHelper.get_changes(carry_fields: [:id])
+    |> EV.ChangesetHelper.fetch_changes(carry_fields: [:id])
     |> EV.maybe_publish(
       :user_created,
       nil,
