@@ -7,3 +7,4 @@ erl_crash.dump
 *.ez
 ev-*.tar
 /tmp/
+/priv/plts
