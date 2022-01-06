@@ -50,7 +50,7 @@ defmodule EV.MixProject do
 
   defp description() do
     """
-    A library made for events-based architecture
+    A library made for events-based architecture.
     """
   end
 
