@@ -18,7 +18,7 @@ defmodule EV.MixProject do
       ],
       name: "EV",
       source_url: "https://github.com/fiodorbaczynski/ev",
-      homepage_url: "",
+      homepage_url: "https://github.com/fiodorbaczynski/ev",
       docs: [
         main: "EV",
         groups_for_modules: [
@@ -50,7 +50,7 @@ defmodule EV.MixProject do
 
   defp description() do
     """
-    EV
+    A library made for events-based architecture
     """
   end
 
