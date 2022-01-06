@@ -25,6 +25,7 @@ defmodule EV.Event do
     field(:applied_at, :utc_datetime_usec)
   end
 
+  @doc false
   @spec publish_changeset(%__MODULE__{} | Ecto.Changeset.t(), map()) :: Ecto.Changeset.t()
   def publish_changeset(event \\ %__MODULE__{}, params) do
     event
@@ -34,6 +35,7 @@ defmodule EV.Event do
     |> validate_number(:version, greater_than: 0)
   end
 
+  @doc false
   @spec apply_changeset(%__MODULE__{} | Ecto.Changeset.t(), map()) :: Ecto.Changeset.t()
   def apply_changeset(event \\ %__MODULE__{}, params) do
     event

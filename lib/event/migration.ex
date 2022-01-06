@@ -1,6 +1,23 @@
 defmodule EV.Event.Migration do
   @moduledoc """
   Generator for events table migrations.
+
+  Migration templates can be found in `priv/migrations`.
+
+  ## Options
+
+  * `:table_name` - full path `[:persistence_opts, :table_name]` required; specifies the table name
+  * `:migration_version` - full path `[:persistence_opts, :migration_version]`; optional;
+    defaults to version specified in `mix.exs`; version of migration to be used
+
+  ## Example
+
+  ```elixir
+  defmodule MyApp.Migrations.CreateApp do
+    use Ecto.Migration
+    use EV.Event.Migration, migration_version: "0.1.0"
+  end
+  ```
   """
 
   require Logger
@@ -17,7 +34,7 @@ defmodule EV.Event.Migration do
         unquoted_opts,
         :version,
         to_string(Application.spec(:ev, :vsn)),
-        :migration_opts
+        :persistence_opts
       )
 
     Logger.debug("Using #{table_name} as the events table")

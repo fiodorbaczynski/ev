@@ -4,6 +4,10 @@ defmodule EV.Applicators.Default do
 
   Simply uses `Ecto.Changeset.apply_action/2` to return an event based on the given changeset,
   and calls the handler function.
+
+  ## Options
+
+    * `:handler_opts` - optional; defaults to `nil`; passed as the second argument to the `handler/2` function.
   """
 
   @behaviour EV.Applicator

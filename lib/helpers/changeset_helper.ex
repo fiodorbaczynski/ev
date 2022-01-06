@@ -8,12 +8,12 @@ defmodule EV.ChangesetHelper do
 
   ## Options
 
-    * `:carry_fields` - full path `[:changeset_helper_opts, :repo]`; optional; atom or list of atoms;
-      specifies which, if any, fields should be taken from data when missing in changes; defaults to `[:id]`
+    * `:carry_fields` - full_path [`:changeset_helper_opts`, :carry_fields]; optional; atom or list of atoms;
+      specifies which, if any, fields should be taken from data when not present in changes; defaults to `[:id]`
 
   ## Examples
 
-  ```
+  ```elixir
   iex> changeset = %Ecto.Changeset{valid?: true, data: %{id: 1, foo: "abc"}, changes: %{foo: "cde", bar: "efg"}}
   iex> EV.ChangesetHelper.get_changes(changeset)
   {:ok, %{id: 1, foo: "cde", bar: "efg"}}

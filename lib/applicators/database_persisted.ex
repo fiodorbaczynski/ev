@@ -6,6 +6,7 @@ defmodule EV.Applicators.DatabasePersisted do
 
     * `:repo` - full path `[:persistence_opts, :repo]`; required; module which defines the `Ecto.Repo` behavior;
       used for persistence
+    * `:handler_opts` - optional; defaults to `nil`; passed as the second argument to the `handler/2` function.
   """
 
   @behaviour EV.Applicator
