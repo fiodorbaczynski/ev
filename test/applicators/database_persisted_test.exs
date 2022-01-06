@@ -35,12 +35,12 @@ defmodule EV.Applicators.DatabasePersistedTest do
         Ecto.Changeset.apply_action(changeset, :update)
       end)
 
-      expect(HandlerMock, :handle, fn %{payload: payload} ->
+      expect(HandlerMock, :handle, fn %{payload: payload}, _opts ->
         {:ok, payload}
       end)
 
       assert {:ok, {applied_event, result}} =
-               EV.Applicators.DatabasePersisted.call(changeset, &HandlerMock.handle/1,
+               EV.Applicators.DatabasePersisted.call(changeset, &HandlerMock.handle/2,
                  repo: RepoMock
                )
 
@@ -64,12 +64,12 @@ defmodule EV.Applicators.DatabasePersistedTest do
         {:error, error}
       end)
 
-      expect(HandlerMock, :handle, fn _event ->
+      expect(HandlerMock, :handle, fn _event, _opts ->
         {:error, "oops"}
       end)
 
       assert {:error, "oops"} =
-               EV.Applicators.DatabasePersisted.call(changeset, &HandlerMock.handle/1,
+               EV.Applicators.DatabasePersisted.call(changeset, &HandlerMock.handle/2,
                  repo: RepoMock
                )
     end

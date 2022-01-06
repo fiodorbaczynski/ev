@@ -9,9 +9,11 @@ defmodule EV.Applicators.Default do
   @behaviour EV.Applicator
 
   @impl EV.Applicator
-  def call(changeset, handler, _opts) do
+  def call(changeset, handler, opts) do
+    handler_opts = EV.ConfigHelper.get_config(opts, :handler_opts, nil)
+
     with {:ok, applied_event} <- Ecto.Changeset.apply_action(changeset, :update),
-         {:ok, result} <- handler.(applied_event) do
+         {:ok, result} <- handler.(applied_event, handler_opts) do
       {:ok, {applied_event, result}}
     end
   end

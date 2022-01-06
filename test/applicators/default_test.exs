@@ -27,12 +27,12 @@ defmodule EV.Applicators.DefaultTest do
       changeset: changeset,
       applied_at: applied_at
     } do
-      expect(HandlerMock, :handle, fn %{payload: payload} ->
+      expect(HandlerMock, :handle, fn %{payload: payload}, _opts ->
         {:ok, payload}
       end)
 
       assert {:ok, {applied_event, result}} =
-               EV.Applicators.Default.call(changeset, &HandlerMock.handle/1, [])
+               EV.Applicators.Default.call(changeset, &HandlerMock.handle/2, [])
 
       assert result == payload
 

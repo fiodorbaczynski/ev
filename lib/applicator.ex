@@ -8,8 +8,7 @@ defmodule EV.Applicator do
 
   @callback call(
               changeset :: Ecto.Changeset.t(),
-              handler :: (EV.Event.t() -> {:ok | :error, any()}),
+              handler :: (EV.Event.t(), any() -> {:ok | :error, any()}),
               opts :: Keyword.t()
-            ) ::
-              {:ok | :error, any()}
+            ) :: {:ok | :error, any()}
 end

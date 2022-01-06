@@ -78,7 +78,7 @@ defmodule EV do
 
     event
     |> EV.Event.apply_changeset(%{applied_at: DateTime.utc_now()})
-    |> applicator.call(&handler.handle/1, opts)
+    |> applicator.call(handler, opts)
   end
 
   @spec maybe_apply(maybe_event :: {:ok, EV.Event.t()} | {:error, any()}, opts :: Keyword.t()) ::
