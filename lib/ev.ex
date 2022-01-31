@@ -211,7 +211,7 @@ defmodule EV do
   %{"type" => "system"}
   ```
   """
-  @spec publish(payload :: map(), type :: atom(), issuer :: map() | nil, opts :: Keyword.t()) ::
+  @spec publish(payload :: term(), type :: atom(), issuer :: map() | nil, opts :: Keyword.t()) ::
           {:ok, EV.Event.t()} | {:error, any()}
   def publish(payload, type, issuer, opts \\ []) do
     publisher = EV.ConfigHelper.get_config(opts, :publisher, EV.Publishers.Default)
